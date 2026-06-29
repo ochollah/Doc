@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic & Technical Portfolio - Ochollah Kennedy</title>
+    <style>
+        :root {
+            --primary-gold: #d4af37;
+            --dark-gold: #aa8416;
+            --bg-charcoal: #121212;
+            --bg-card: #1e1e1e;
+            --text-light: #f5f5f5;
+            --text-muted: #a0a0a0;
+            --border-color: #2d2d2d;
+            --accent-blue: #3498db;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-charcoal);
+            color: var(--text-light);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* Profile Block Layout */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            background-color: var(--bg-card);
+            padding: 40px;
+            border-radius: 8px;
+            border-bottom: 4px solid var(--primary-gold);
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .avatar-container {
+            flex-shrink: 0;
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-gold);
+            object-fit: cover;
+            background-color: #333;
+        }
+
+        .header-text {
+            flex-grow: 1;
+        }
+
+        .header-text h1 {
+            font-size: 2.8rem;
+            color: var(--primary-gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .header-text p.subtitle {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 0.9rem;
+        }
+
+        .contact-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            background: rgba(255,255,255,0.05);
+            padding: 5px 12px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        .contact-links a:hover {
+            border-color: var(--primary-gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        /* Two Column Content Layout */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 850px) {
+            .profile-header { flex-direction: column; text-align: center; padding: 20px; }
+            .main-layout { grid-template-columns: 1fr; }
+        }
+
+        /* Card Panels */
+        section {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        section h2 {
+            color: var(--primary-gold);
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary-gold);
+            padding-left: 15px;
+            text-transform: uppercase;
+        }
+
+        /* View Document Button System */
+        .btn-view-doc {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+            color: #111;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .btn-view-doc:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(212,175,55,0.4);
+        }
+
+        /* Lists and Badges */
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            margin-bottom: 15px;
+            background: rgba(255,255,255,0.02);
+            padding: 10px 15px;
+            border-radius: 6px;
+            border-left: 2px solid var(--primary-gold);
+        }
+
+        .skill-title {
+            font-weight: 600;
+            color: #fff;
+            display: block;
+            font-size: 0.95rem;
+        }
+
+        .skill-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .pill {
+            display: inline-block;
+            background: rgba(212,175,55,0.1);
+            color: var(--primary-gold);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            margin-top: 5px;
+            border: 1px solid rgba(212,175,55,0.2);
+        }
+        /* PDF Export Styling - Applied during print */
+@media print {
+    body { background: white; color: black; padding: 0; }
+    .container { max-width: 100%; }
+    
+    /* Hide non-print elements */
+    .btn-view-doc, .transcript-toggle, .lightbox-modal, .contact-links, .btn-print {
+        display: none !important;
+    }
+
+    /* Framing and Layout */
+    section {
+        border: 1px solid #000;
+        padding: 20px;
+        page-break-inside: avoid;
+        margin-bottom: 20px;
+    }
+
+    /* Numbering and Headers/Footers */
+    @page {
+        margin: 1cm;
+        @bottom-right {
+            content: "Page " counter(page) " of " counter(pages);
+            font-size: 10px;
+        }
+        @top-center {
+            content: "Ochollah Kennedy - Professional Portfolio";
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+    }
+
+    /* Ensure tables are readable */
+    table { page-break-inside: auto; }
+    tr { page-break-inside: avoid; page-break-after: auto; }
+}
+
+
+        /* Work History Elements */
+        .timeline-item {
+            border-left: 2px solid var(--border-color);
+            padding-left: 20px;
+            margin-left: 10px;
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            position: absolute;
+            left: -6px;
+            top: 8px;
+        }
+
+        .job-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .job-meta {
+            font-size: 0.85rem;
+            color: var(--primary-gold);
+            margin-bottom: 8px;
+        }
+
+        .job-bullets {
+            list-style-type: square;
+            margin-left: 18px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .job-bullets li { margin-bottom: 4px; }
+
+        /* Academic Data Tables */
+        .table-container { overflow-x: auto; margin-top: 15px; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th { background-color: rgba(212, 175, 55, 0.08); color: var(--primary-gold); padding: 10px 12px; font-size: 0.85rem; border-bottom: 2px solid var(--primary-gold); text-transform: uppercase; }
+        td { padding: 10px 12px; border-bottom: 1px solid var(--border-color); font-size: 0.9rem; }
+        
+        /* Accordion Structure */
+        .transcript-toggle {
+            background-color: rgba(255,255,255,0.02);
+            color: #fff;
+            cursor: pointer;
+            padding: 12px 15px;
+            width: 100%;
+            border: 1px solid var(--border-color);
+            text-align: left;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            margin-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .transcript-toggle:after { content: '\002B'; color: var(--primary-gold); }
+        .active:after { content: "\2212"; }
+        .transcript-content { padding: 0 10px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+
+        .badge { display: inline-block; padding: 2px 6px; border-radius: 4px; font-weight: bold; font-size: 0.8rem; }
+        .badge-a { background-color: #2e7d32; color: #fff; }
+        .badge-b { background-color: #1565c0; color: #fff; }
+        .badge-c { background-color: #ef6c00; color: #fff; }
+        .badge-d { background-color: #c62828; color: #fff; }
+
+        .ref-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 15px; }
+        .ref-card { background: rgba(255,255,255,0.01); border: 1px solid var(--border-color); padding: 15px; border-radius: 6px; font-size: 0.85rem; }
+        .ref-name { font-weight: 600; color: var(--primary-gold); margin-bottom: 4px; }
+
+        /* SAME-PAGE LIGHTBOX IMAGE VIEWER MODAL */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        .lightbox-content-wrapper {
+            position: relative;
+            max-width: 90%;
+            max-height: 82vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            border: 2px solid var(--primary-gold);
+            border-radius: 4px;
+            background-color: #1a1a1a;
+        }
+
+        #lightboxImage {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            display: block;
+        }
+
+        .lightbox-caption {
+            color: var(--primary-gold);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 15px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .lightbox-close-btn {
+            position: absolute;
+            top: -45px;
+            right: -10px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 2.5rem;
+            font-weight: 300;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .lightbox-close-btn:hover {
+            color: var(--primary-gold);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- OVERVIEW BLOCK -->
+    <header class="profile-header">
+        <div class="avatar-container">
+            <img class="avatar" src="avatar.jpg" onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='" alt="Ochollah Kennedy Portrait">
+        </div>
+        <button class="btn-print" onclick="window.print()" style="padding: 10px 20px; background: var(--primary-gold); color: #000; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; margin-bottom: 20px;">
+    📄 EXPORT TO CRYSTAL PDF
+</button>
+
+        <div class="header-text">
+            <h1>Ochollah Kennedy</h1>
+            <p class="subtitle">IT Specialist & Systems Administrator</p>
+            <div class="contact-links">
+                <a href="tel:+254711176811">📞 +254 711176811</a>
+                <a href="mailto:Ochollahk37@gmail.com">✉️ Ochollahk37@gmail.com</a>
+                <a href="https://linkedin.com/ochollah.kennedy" target="_blank">🔗 LinkedIn</a>
+                <a href="https://ochollah.github.io" target="_blank">🌐 GitHub Portfolio</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENT ROOT GRID -->
+    <div class="main-layout">
+        
+        <!-- SIDEBAR COLUMN -->
+        <div class="sidebar">
+            
+            <!-- IDENTIFICATION CORE -->
+            <section>
+                <h2>Identification</h2>
+                <button class="btn-view-doc" onclick="viewImageOnPage('National ID Card', 'id_card.jpg')">View</button>
+                <div style="margin-top:15px; font-size:0.9rem;">
+                    <p style="margin-bottom:6px;"><strong style="color:var(--primary-gold);">National ID:</strong> 223514966</p>
+                    <p style="margin-bottom:6px;"><strong style="color:var(--primary-gold);">DOB:</strong> January 20, 1969</p>
+                    <p style="margin-bottom:6px;"><strong style="color:var(--primary-gold);">Origin:</strong> Homa Bay County</p>
+                    <p><strong>Status:</strong> Verified Records</p>
+                </div>
+            </section>
+
+            <!-- TECHNICAL TOOLKIT (EXPANDED) -->
+            <section>
+                <h2>Modern Technical Toolkit</h2>
+                <ul class="skill-list">
+                    <li>
+                        <span class="skill-title">AI & Data Intelligence</span>
+                        <span class="skill-desc">Generative AI implementation, logic engine development for predictive analytics (WDL/Expected Goals), WDL statistics parsing, and automated data extraction workflows.</span>
+                    </li>
+                    <li>
+                        <span class="skill-title">Fullstack & Backend Engineering</span>
+                        <span class="skill-desc">Development of high-performance reporting tools and matrix calculators using Python, PHP, and JavaScript; robust backend logic for Firebase Firestore, Realtime Database, and Authentication.</span>
+                    </li>
+                    <li>
+                        <span class="skill-title">API Integration & FinTech</span>
+                        <span class="skill-desc">Advanced M-Pesa Safaricom Daraja API orchestration (STK Push, B2B, Callback Handlers), Stripe/PayPal processing, and secure OpenTelemetry/GCP integration.</span>
+                    </li>
+                    <li>
+                        <span class="skill-title">Web Scraping & Automation</span>
+                        <span class="skill-desc">Automated data harvesting from dynamic platforms (e.g., bettingclosed.com, flashscore.com) utilizing XPath, automated script orchestration, and Table Capture data extraction.</span>
+                    </li>
+                    <li>
+                        <span class="skill-title">Cloud Hosting & DevOps</span>
+                        <span class="skill-desc">Strategic deployment via Vercel and Render, Google Cloud Platform (GCP) project administration, service account/credential management, and CI/CD pipelines.</span>
+                    </li>
+                    <li>
+                        <span class="skill-title">Geospatial & Database Systems</span>
+                        <span class="skill-desc">MySQL/MongoDB geospatial querying, Leaflet.js map implementation, geolocation-aware discovery systems, and high-performance database schema design (SQL/PDO/ORM).</span>
+                    </li>
+                </ul>
+            </section>
+
+
+            <!-- REFERENCES MODULE -->
+            <section>
+                <h2>Professional References</h2>
+                <div class="ref-grid">
+                    <div class="ref-card">
+                        <div class="ref-name">Mr. Fredrick Obure</div>
+                        <div>Director / Principal</div>
+                        <div style="color:var(--text-muted);">International Center of Technology</div>
+                        <div style="margin-top:5px; color:var(--primary-gold);">📞 0725 945932</div>
+                    </div>
+                    <div class="ref-card">
+                        <div class="ref-name">Mr. Dick Ochieng Auma</div>
+                        <div>Principal / Registrar</div>
+                        <div style="color:var(--text-muted);">Kenya Institute of Software Engineers</div>
+                        <div style="margin-top:5px; color:var(--primary-gold);">📞 0722 794673</div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- MAIN INFORMATION COLUMN -->
+        <div class="content-main">
+            
+            <!-- HIGHER EDUCATION COMPONENT -->
+            <section>
+                <h2>University Credentials</h2>
+                <button class="btn-view-doc" onclick="viewImageOnPage('BSc Degree Certificate', 'degree_cert.jpg')">View Cert</button>
+                
+                <div style="margin-bottom: 20px;">
+                    <h3 style="color:#fff; font-size:1.2rem;">Maasai Mara University</h3>
+                    <p style="color:var(--primary-gold); font-size:0.95rem; font-weight:600;">Bachelor of Science (Computer Science)</p>
+                    <p style="font-size:0.9rem; color:var(--text-muted);">Graduation Timeline: 2009 - 2013 | Classification: Second Class Honours (Upper Division)</p>
+                </div>
+
+                <!-- TRANSCRIPTS INTERACTIVE MATRIX -->
+                <h4 style="font-size:0.95rem; text-transform:uppercase; color:var(--primary-gold); margin-bottom:10px; border-top:1px solid var(--border-color); padding-top:15px;">Academic Transcripts Matrix</h4>
+                
+                <!-- YEAR 4 -->
+                <div style="position:relative;">
+                    <button class="transcript-toggle">Fourth Year Academic Transcript (2012/2013)</button>
+                    <div class="transcript-content">
+                        <div style="padding: 15px 0; text-align:right;">
+                            <a class="pill" style="color:var(--accent-blue); border-color:var(--accent-blue); text-decoration:none;" href="javascript:void(0)" onclick="viewImageOnPage('Fourth Year Transcript', 'transcript_year4.jpg')">📄 View Year 4 Transcript Image</a>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead><tr><th>Code</th><th>Course Description</th><th>Mark</th><th>Grade</th></tr></thead>
+                                <tbody>
+                                    <tr><td>COM-409F</td><td>Distributed Systems</td><td>75</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>COM 410</td><td>User Interface Design</td><td>69</td><td><span class="badge badge-b">B</span></td></tr>
+                                    <tr><td>COM413</td><td>Object Oriented Programming</td><td>66</td><td><span class="badge badge-b">B</span></td></tr>
+                                    <tr><td>COM415</td><td>Human Factors in Computer and Info Systems</td><td>78</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>COM417E</td><td>Computer Graphics</td><td>80</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>COM418S</td><td>Expert Systems</td><td>83</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>COM419</td><td>Computer Systems Design</td><td>70</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>COM421</td><td>Engineering and Software Law</td><td>69</td><td><span class="badge badge-b">B</span></td></tr>
+                                    <tr><td>COM422</td><td>Electronic Circuits and Microprocessors</td><td>70</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>COM423</td><td>Computer Science Project II</td><td>69</td><td><span class="badge badge-b">B</span></td></tr>
+                                    <tr><td>COM424E</td><td>Neural Networks</td><td>83</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>COM426E</td><td>Simulation and Modelling</td><td>70</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>COM427</td><td>Data Communication, Antennas & Propagation</td><td>59</td><td><span class="badge badge-c">C</span></td></tr>
+                                    <tr><td>COM429E</td><td>Measurement and Instrumentation</td><td>62</td><td><span class="badge badge-b">B</span></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- YEAR 3 -->
+                <div style="position:relative;">
+                    <button class="transcript-toggle">Third Year Academic Transcript (2011/2012)</button>
+                    <div class="transcript-content">
+                        <div style="padding: 15px 0; text-align:right;">
+                            <a class="pill" style="color:var(--accent-blue); border-color:var(--accent-blue); text-decoration:none;" href="javascript:void(0)" onclick="viewImageOnPage('Third Year Transcript', 'transcript_year3.jpg')">📄 View Year 3 Transcript Image</a>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead><tr><th>Code</th><th>Course Description</th><th>Mark</th><th>Grade</th></tr></thead>
+                                <tbody>
+                                    <tr><td>COM309E</td><td>Analogue and Digital Communication Systems</td><td>70</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>COM310</td><td>Computer Architecture</td><td>76</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>COM311</td><td>Computer Science Project I</td><td>58</td><td><span class="badge badge-c">C</span></td></tr>
+                                    <tr><td>COM312</td><td>Software Engineering II</td><td>76</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>COM313</td><td>Electronics II</td><td>77</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>COM315</td><td>Algorithms</td><td>74</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>COM317E</td><td>Data Communication and Computer Networks</td><td>52</td><td><span class="badge badge-c">C</span></td></tr>
+                                    <tr><td>COM318E</td><td>Database Systems</td><td>65</td><td><span class="badge badge-b">B</span></td></tr>
+                                    <tr><td>COM319E</td><td>Artificial Intelligence</td><td>62</td><td><span class="badge badge-b">B</span></td></tr>
+                                    <tr><td>COM320</td><td>Digital System Design</td><td>65</td><td><span class="badge badge-b">B</span></td></tr>
+                                    <tr><td>COM321</td><td>Compiler Design</td><td>48</td><td><span class="badge badge-d">D</span></td></tr>
+                                    <tr><td>COM323E</td><td>Information Systems Security</td><td>61</td><td><span class="badge badge-b">B</span></td></tr>
+                                    <tr><td>COM325E</td><td>Computer Applications II</td><td>71</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>COM326</td><td>Software Development</td><td>63</td><td><span class="badge badge-b">B</span></td></tr>
+                                    <tr><td>COM330</td><td>Intermediate Hyper Text Markup Language</td><td>63</td><td><span class="badge badge-b">B</span></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- YEAR 2 -->
+                <div style="position:relative;">
+                    <button class="transcript-toggle">Second Year Academic Transcript (2010/2011)</button>
+                    <div class="transcript-content">
+                        <div style="padding: 15px 0; text-align:right;">
+                            <a class="pill" style="color:var(--accent-blue); border-color:var(--accent-blue); text-decoration:none;" href="javascript:void(0)" onclick="viewImageOnPage('Second Year Transcript', 'transcript_year2.jpg')">📄 View Year 2 Transcript Image</a>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead><tr><th>Code</th><th>Course Description</th><th>Mark</th><th>Grade</th></tr></thead>
+                                <tbody>
+                                    <tr><td>COM210</td><td>Procedural Programming II</td><td>48</td><td><span class="badge badge-d">D</span></td></tr>
+                                    <tr><td>COM211</td><td>Systems Software</td><td>76</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>COM212</td><td>Digital Electronics I</td><td>71</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>COM215</td><td>Electrical Circuits</td><td>60</td><td><span class="badge badge-b">B</span></td></tr>
+                                    <tr><td>COM216</td><td>Internet Fundamentals</td><td>72</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>COM217</td><td>Electronics I</td><td>72</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>COM220</td><td>Software Engineering I</td><td>72</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>COM221</td><td>Computer Organization</td><td>78</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>COM222</td><td>Internet Applications</td><td>65</td><td><span class="badge badge-b">B</span></td></tr>
+                                    <tr><td>COM223</td><td>Operating Systems and Networks</td><td>71</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>COM224</td><td>Data Structures</td><td>75</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>IRD103</td><td>Development Concepts</td><td>71</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>IRD200</td><td>State, Society and Development</td><td>82</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>PHY210</td><td>Electricity and Magnetism</td><td>61</td><td><span class="badge badge-b">B</span></td></tr>
+                                    <tr><td>STA205</td><td>Probability and Statistics</td><td>57</td><td><span class="badge badge-c">C</span></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- YEAR 1 -->
+                <div style="position:relative;">
+                    <button class="transcript-toggle">First Year Academic Transcript (2009/2010)</button>
+                    <div class="transcript-content">
+                        <div style="padding: 15px 0; text-align:right;">
+                            <a class="pill" style="color:var(--accent-blue); border-color:var(--accent-blue); text-decoration:none;" href="javascript:void(0)" onclick="viewImageOnPage('First Year Transcript', 'transcript_year1.jpg')">📄 View Year 1 Transcript Image</a>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead><tr><th>Code</th><th>Course Description</th><th>Mark</th><th>Grade</th></tr></thead>
+                                <tbody>
+                                    <tr><td>COM110</td><td>Introduction to Computing and Computers</td><td>54</td><td><span class="badge badge-c">C</span></td></tr>
+                                    <tr><td>COM111</td><td>Computer Applications I</td><td>57</td><td><span class="badge badge-c">C</span></td></tr>
+                                    <tr><td>COM113</td><td>Mathematics for Computer Science I</td><td>74</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>COM120</td><td>System Hardware</td><td>77</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>COM121</td><td>Procedural Programming I</td><td>69</td><td><span class="badge badge-b">B</span></td></tr>
+                                    <tr><td>COM123</td><td>Mathematics for Computer Science II</td><td>68</td><td><span class="badge badge-b">B</span></td></tr>
+                                    <tr><td>IRD100</td><td>Communication Skills I</td><td>77</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>IRD101</td><td>Quantitative Skills I</td><td>71</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>IRD102</td><td>Communication Skills II</td><td>69</td><td><span class="badge badge-b">B</span></td></tr>
+                                    <tr><td>IRD104</td><td>Quantitative Skills II</td><td>55</td><td><span class="badge badge-c">C</span></td></tr>
+                                    <tr><td>MAT110</td><td>Basic Calculus</td><td>77</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>MAT111</td><td>Geometry & Elementary Analytical Applied Mathematics</td><td>89</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>PHY110</td><td>Basic Physics I</td><td>71</td><td><span class="badge badge-a">A</span></td></tr>
+                                    <tr><td>PHY111</td><td>Basic Physics II</td><td>68</td><td><span class="badge badge-b">B</span></td></tr>
+                                    <tr><td>STA111</td><td>Statistics and Probability I</td><td>73</td><td><span class="badge badge-a">A</span></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- K.C.S.E PROFILE -->
+            <section>
+                <h2>Secondary Education Level</h2>
+                <button class="btn-view-doc" onclick="viewImageOnPage('K.C.S.E Certificate', 'kcse_cert.jpg')">View Cert</button>
+                <div style="margin-bottom:15px;">
+                    <p><strong>Institution:</strong> Obera Boys High School (Year: 2007)</p>
+                    <p><strong>Performance Index Evaluation:</strong> Mean Grade: <span style="color:var(--primary-gold); font-weight:700;">B+ (Plus)</span></p>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead><tr><th>Subject</th><th>Grade</th><th>Subject</th><th>Grade</th></tr></thead>
+                        <tbody>
+                            <tr><td>Mathematics</td><td><span class="badge badge-a">A</span></td><td>Physics</td><td><span class="badge badge-a">A-</span></td></tr>
+                            <tr><td>Biology</td><td><span class="badge badge-a">A-</span></td><td>Chemistry</td><td><span class="badge badge-a">A-</span></td></tr>
+                            <tr><td>Geography</td><td><span class="badge badge-a">A-</span></td><td>History and Government</td><td><span class="badge badge-b">B+</span></td></tr>
+                            <tr><td>Kiswahili</td><td><span class="badge badge-b">B+</span></td><td>English</td><td><span class="badge badge-c">C+</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- CHRONOLOGICAL EXPERIENCE HISTORY -->
+            <section>
+                <h2>Chronological Experience History</h2>
+                
+                <div class="timeline-item">
+                    <button class="btn-view-doc" style="top:0;" onclick="viewImageOnPage('Deenways School Contract', 'deenways_proof.jpg')">Verify</button>
+                    <div class="job-title">IT Support Specialist & Trainer (British Curriculum)</div>
+                    <div class="job-meta">Deenways International Schools (DIS), Nyali Mombasa | 11/2023 - Present</div>
+                    <ul class="job-bullets">
+                        <li>Deliver specialized information systems technical guidance to engineering faculty and learner cohorts.</li>
+                        <li>Install, audit, and configure computer operating structures, application systems, and peripheral enterprise grids.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <button class="btn-view-doc" style="top:0;" onclick="viewImageOnPage('KISE Appointment Letter', 'kise_proof.jpg')">Verify</button>
+                    <div class="job-title">IT Trainer & Support Engineer (Kenya Curriculum)</div>
+                    <div class="job-meta">Kenya Institute of Software Engineers (KISE), Thika | 01/2023 - 08/2023</div>
+                    <ul class="job-bullets">
+                        <li>Organized classroom information system networks, maintaining zero downtime infrastructure rules.</li>
+                        <li>Engineered advanced lesson frameworks exploring core architecture lifecycles and modern agile workflows.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <button class="btn-view-doc" style="top:0;" onclick="viewImageOnPage('ICT College Employment Record', 'ict_proof.jpg')">Verify</button>
+                    <div class="job-title">ICT Support Officer</div>
+                    <div class="job-meta">International Centre of Technology College (ICT), Nairobi | 01/2019 - 08/2022</div>
+                    <ul class="job-bullets">
+                        <li>Administered multi-user technical support pipelines, processing tier-1 system recovery actions.</li>
+                        <li>Evaluated vendor hardware and software procurement proposals to secure financial cost-efficiency metrics.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <button class="btn-view-doc" style="top:0;" onclick="viewImageOnPage('COGRI Recommendation Letter', 'cogri_proof.jpg')">Verify Letter</button>
+                    <div class="job-title">Information Systems Officer</div>
+                    <div class="job-meta">Children of God Relief Institute (COGRI), Karen Nairobi | 01/2017 - 10/2018</div>
+                    <ul class="job-bullets">
+                        <li>Conducted detailed system feasibility and architectural workflow security evaluations.</li>
+                        <li>Managed software deployment cycles and system updates across all organizational computing nodes.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- CERTIFICATIONS BLOCK -->
+            <section>
+                <h2>Credentials & Professional Certifications</h2>
+                <button class="btn-view-doc" onclick="viewImageOnPage('YALI Network Certification', 'yali_cert.jpg')">View All</button>
+                <div style="font-size:0.95rem; margin-bottom:15px;">
+                    <strong style="color:var(--primary-gold);">YALI Network Certified Modules:</strong>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:0.9rem; color:var(--text-muted);">
+                    <div>✔ Basics of Public-Private Partnerships</div>
+                    <div>✔ Community Organizing for Action</div>
+                    <div>✔ Management Strategies for People and Resources</div>
+                    <div>✔ Strengthening Public Sector Service</div>
+                    <div>✔ Applied Project Management Modules</div>
+                    <div>✔ CompTIA A+ Infrastructure Support Module</div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+</div>
+
+<!-- SINGLE-PAGE IMAGE LIGHTBOX MODAL OVERLAY -->
+<div id="imageLightbox" class="lightbox-modal" onclick="closeLightboxOutside(event)">
+    <div class="lightbox-content-wrapper">
+        <button class="lightbox-close-btn" onclick="closeLightbox()">&times;</button>
+        <img id="lightboxImage" src="" alt="Certificate View Only">
+    </div>
+    <div id="lightboxCaption" class="lightbox-caption">Document Title</div>
+</div>
+
+<script>
+    // Accordion Control Structure for Transcripts
+    var acc = document.getElementsByClassName("transcript-toggle");
+    for (var i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            } 
+        });
+    }
+
+    // Dynamic Same-Page Image Viewer System (Lightbox)
+    function viewImageOnPage(documentName, imageFileName) {
+        var lightbox = document.getElementById("imageLightbox");
+        var targetImg = document.getElementById("lightboxImage");
+        var caption = document.getElementById("lightboxCaption");
+
+        // Set the sources locally (Works instantly when housed in the same folder)
+        targetImg.src = imageFileName;
+        caption.innerText = documentName;
+        
+        // Render view overlay
+        lightbox.style.display = "flex";
+        document.body.style.overflow = "hidden"; // Blocks page scrolling behind modal
+    }
+
+    function closeLightbox() {
+        document.getElementById("imageLightbox").style.display = "none";
+        document.body.style.overflow = "auto"; // Restores normal scroll actions
+    }
+
+    function closeLightboxOutside(event) {
+        // Closes window cleanly if clicking outside the container boundary area
+        if (event.target.id === "imageLightbox") {
+            closeLightbox();
+        }
+    }
+</script>
+
+</body>
+</html>
